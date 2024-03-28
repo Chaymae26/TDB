@@ -1,10 +1,12 @@
 import streamlit as st
 import pandas as pd
-import matplotlib.pyplot as plt
+
 
 def install_dependencies():
     import subprocess
     subprocess.check_call(['pip', 'install', 'matplotlib==3.4.0'])
+install_dependencies()
+import matplotlib.pyplot as plt
 
 st.set_page_config(page_title="Tableau de Bord", page_icon=":bar_chart:",layout="wide")
 st.title(":bar_chart: Tableau de Bord")
@@ -105,7 +107,7 @@ def run_app():
     Direction_filter = None
     Impacted_filter = None
 
-    install_dependencies()
+   
     custom_sidebar()
 
     col1, col2 = st.columns([3, 4])
