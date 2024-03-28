@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
+import altair as alt
 
 
 st.set_page_config(page_title="Tableau de Bord", page_icon=":bar_chart:",layout="wide")
@@ -78,6 +79,57 @@ def afficher_graphiques_risques(df):
     # Show the plot
     st.pyplot(fig)
 
+    df['Direction Responsable'] = df['Direction Responsable'].apply(lambda x: '\n'.join([x[i:i+10] for i in range(0, len(x), 10)]))
+    df['Direction Impactée'] = df['Direction Impactée'].apply(lambda x: '\n'.join([x[i:i+10] for i in range(0, len(x), 10)]))
+
+    risks_per_direction = df.groupby('Direction Responsable')['Risques'].count().reset_index()
+    criticity_per_direction = df.groupby('Direction Responsable')['Criticité Nette Actuelle'].mean().reset_index()
+    risks_per_impacted_direction = df.groupby('Direction Impactée')['Risques'].count().reset_index()
+    criticity_per_impacted_direction = df.groupby('Direction Impactée')['Criticité Nette Actuelle'].mean().reset_index()
+
+    st.subheader('Direction Responsable')
+    bar_chart1 = alt.Chart(risks_per_direction).mark_bar().encode(
+        x=alt.X('Direction Responsable', axis=alt.Axis(labelAngle=0)),
+        y='Risques',
+        color=alt.value('blue')
+    ).properties(
+        width=600,
+        height=400
+    )
+
+    line_chart1 = alt.Chart(criticity_per_direction).mark_line(color='red').encode(
+        x=alt.X('Direction Responsable', axis=alt.Axis(labelAngle=0)),
+        y='Criticité Nette Actuelle'
+    ).properties(
+        width=600,
+        height=400
+    )
+
+    combined_chart1 = alt.layer(bar_chart1, line_chart1).resolve_scale(y='independent')
+    st.altair_chart(combined_chart1, use_container_width=True)
+
+    # Create charts for Direction Impactée
+    st.subheader('Direction Impactée')
+    bar_chart2 = alt.Chart(risks_per_impacted_direction).mark_bar().encode(
+        x=alt.X('Direction Impactée', axis=alt.Axis(labelAngle=0)),
+        y='Risques',
+        color=alt.value('green')
+    ).properties(
+        width=600,
+        height=400
+    )
+
+    line_chart2 = alt.Chart(criticity_per_impacted_direction).mark_line(color='orange').encode(
+        x=alt.X('Direction Impactée', axis=alt.Axis(labelAngle=0)),
+        y='Criticité Nette Actuelle'
+    ).properties(
+        width=600,
+        height=400
+    )
+
+    combined_chart2 = alt.layer(bar_chart2, line_chart2).resolve_scale(y='independent')
+    st.altair_chart(combined_chart2, use_container_width=True)
+
 def afficher_graphiques_incidents(df):
     # Ajoutez ici les graphiques pour les incidents
     st.write("Graphiques pour les Incidents")
@@ -152,3 +204,4 @@ def run_app():
     
 if __name__ == "__main__":
     run_app()
+
