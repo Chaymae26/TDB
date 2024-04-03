@@ -444,7 +444,7 @@ def custom_sidebar():
         """
         <style>
             .stApp header {
-                background-color:LightGray !important;
+                background-color:Gainsboro !important;
             }
         </style>
         """,
@@ -607,7 +607,5 @@ def run_app():
     if option:
         main(option, uploaded_file, year_filter,Category_filter,Direction_filter,Impacted_filter,Criticity_filter,kri_total_risques, kri_hotels_risques, kri_siege_risques,kri_response_time,kri_criticity,kri_critic_risks)
 
-    
-    
 if __name__ == "__main__":
     run_app()
