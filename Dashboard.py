@@ -77,7 +77,7 @@ def afficher_graphiques_risques(df):
     fig, axs = plt.subplots(1, 2, figsize=(20, 8), gridspec_kw={'wspace': 0.2})
 
     # Etat de la Criticité
-    axs[0].pie(kri_counts, labels=kri_counts.index, autopct='%1.1f%%', startangle=90, colors=['#FFD700','#32CD32','#FF8C00','#DF0101'], wedgeprops=dict(width=0.5), textprops={'fontsize': 12})
+    axs[0].pie(kri_counts, labels=["Faible","Modérée","Forte","Critique"], autopct='%1.1f%%', startangle=90, colors=['#32CD32','#FFD700','#FF8C00','#DF0101'], wedgeprops=dict(width=0.5), textprops={'fontsize': 12})
     axs[0].set_title('Etat de la Criticité', fontsize=16, fontweight='bold')
     axs[0].axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle
 
@@ -153,12 +153,12 @@ def afficher_graphiques_risques(df):
     Action_count = df["Etat Plan d'Actions"].value_counts()
 
     # Etat des Risques
-    axs[0].pie(Risk_count, labels=Risk_count.index, autopct='%1.1f%%', startangle=90, colors=['#04B431','#FFBF00','#DF0101'], wedgeprops=dict(width=0.5), textprops={'fontsize': 12})
+    axs[0].pie(Risk_count, labels=["Evité","En Attente","Produit"], autopct='%1.1f%%', startangle=90, colors=['#04B431','#FFBF00','#DF0101'], wedgeprops=dict(width=0.5), textprops={'fontsize': 12})
     axs[0].set_title('Etat des Risques', fontsize=20, fontweight='bold')
     axs[0].axis('equal')  
 
     # Etat Plan d'Actions
-    axs[1].pie(Action_count, labels=Action_count.index, autopct='%1.1f%%', startangle=90, colors=['#04B431','#FFBF00','#DF0101','#3374FF'], wedgeprops=dict(width=0.5), textprops={'fontsize': 12})
+    axs[1].pie(Action_count, labels=["Réalisées","En Cours","Echues Non Réalisées","A Prévoir"], autopct='%1.1f%%', startangle=90, colors=['#04B431','#FFBF00','#DF0101','#3374FF'], wedgeprops=dict(width=0.5), textprops={'fontsize': 12})
     axs[1].set_title("Etat Plan d'Actions", fontsize=20, fontweight='bold')
     axs[1].axis('equal')
 
@@ -281,7 +281,7 @@ def afficher_graphiques_incidents(df):
         Inc_count = df['Etat Incident'].value_counts()
 
         # Etat des Incidents
-        ax.pie(Inc_count, labels=Inc_count.index, autopct='%1.1f%%', startangle=90, colors=['#04B431','#FFBF00','#DF0101'], wedgeprops=dict(width=0.55), textprops={'fontsize': 20})
+        ax.pie(Inc_count, labels=["Cloturés","En Cours","Non Entamés"], autopct='%1.1f%%', startangle=90, colors=['#04B431','#FFBF00','#DF0101'], wedgeprops=dict(width=0.55), textprops={'fontsize': 20})
         ax.axis('equal')  
 
         plt.tight_layout()
@@ -297,7 +297,7 @@ def afficher_graphiques_incidents(df):
         Action_plan = df["Etat Plan d'Actions"].value_counts()
 
         # Etat Plan d'actions
-        ax.pie(Action_plan, labels=Action_plan.index, autopct='%1.1f%%', startangle=90, colors=['#04B431','#FFBF00','#DF0101','#3374FF'], wedgeprops=dict(width=0.55), textprops={'fontsize': 35})
+        ax.pie(Action_plan, labels=["Réalisées","En Cours","Echues Non Réalisées","A Prévoir"], autopct='%1.1f%%', startangle=90, colors=['#04B431','#FFBF00','#DF0101','#3374FF'], wedgeprops=dict(width=0.55), textprops={'fontsize': 35})
         ax.axis('equal')  
 
         plt.tight_layout()
@@ -366,7 +366,7 @@ def afficher_graphiques_incidents(df):
         fig, ax = plt.subplots(1, 1, figsize=(25, 16), gridspec_kw={'wspace': 0.2})
 
         # Etat de la Criticité
-        ax.pie(kri_counts, labels=kri_counts.index, autopct='%1.1f%%', startangle=90, colors=['#FFD700','#32CD32','#FF8C00','#DF0101'], wedgeprops=dict(width=0.6), textprops={'fontsize': 35})
+        ax.pie(kri_counts, labels=["Faible","Modérée","Forte","Critique"], autopct='%1.1f%%', startangle=90, colors=['#32CD32','#FFD700','#FF8C00','#DF0101'], wedgeprops=dict(width=0.6), textprops={'fontsize': 35})
         ax.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle
 
         plt.tight_layout()
@@ -444,7 +444,7 @@ def custom_sidebar():
         """
         <style>
             .stApp header {
-                background-color:Gainsboro !important;
+                background-color:LightGray !important;
             }
         </style>
         """,
@@ -604,8 +604,14 @@ def run_app():
             if Criticity_filter == "Toutes":
                 Criticity_filter = None 
 
+            
+
+
+
     if option:
         main(option, uploaded_file, year_filter,Category_filter,Direction_filter,Impacted_filter,Criticity_filter,kri_total_risques, kri_hotels_risques, kri_siege_risques,kri_response_time,kri_criticity,kri_critic_risks)
 
+    
+    
 if __name__ == "__main__":
     run_app()
