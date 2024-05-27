@@ -37,7 +37,7 @@ def afficher_graphiques_risques(df):
 
     fig, axs = plt.subplots(1, 2, figsize=(18, 8), gridspec_kw={'wspace': 0.2})
 
-    bars = axs[0].barh(top_risks_by_type.index[::-1], top_risks_by_type.values[::-1], color='royalblue')
+    bars = axs[0].barh(top_risks_by_type.index[::-1], top_risks_by_type.values[::-1], color='cornflowerblue')
 
     for bar in bars:
         width = bar.get_width()
