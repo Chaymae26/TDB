@@ -2,7 +2,6 @@ import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 import altair as alt
-import numpy as np
 import plotly.graph_objects as go
 
 
@@ -38,7 +37,7 @@ def afficher_graphiques_risques(df):
 
     fig, axs = plt.subplots(1, 2, figsize=(18, 8), gridspec_kw={'wspace': 0.2})
 
-    bars = axs[0].barh(top_risks_by_type.index[::-1], top_risks_by_type.values[::-1], color='steelblue')
+    bars = axs[0].barh(top_risks_by_type.index[::-1], top_risks_by_type.values[::-1], color='royalblue')
 
     for bar in bars:
         width = bar.get_width()
@@ -49,7 +48,7 @@ def afficher_graphiques_risques(df):
                     ha='left', va='center')
 
     axs[0].set_xlabel('Criticité Nette Actuelle')
-    axs[0].set_title('Récurrence des Typologies des Risques', fontsize=16, fontweight='bold')
+    axs[0].set_title('Typologies des Risques', fontsize=16, fontweight='bold')
 
     plt.tight_layout()
 
@@ -108,7 +107,7 @@ def afficher_graphiques_risques(df):
     bar_chart1 = alt.Chart(risks_per_direction).mark_bar().encode(
         x=alt.X('Direction Responsable', axis=alt.Axis(labelAngle=65)),
         y='Typologie Risques',
-        color=alt.value('blue')
+        color=alt.value('royalblue')
     ).properties(
         width=600,
         height=400
@@ -249,11 +248,11 @@ def afficher_graphiques_incidents(df):
     col1, col2, col3 = st.columns([2, 0.5, 2])
 
     with col1:
-        st.markdown("<h5 style='text-align: center; font-weight: bold;'>Récurrence des Typologies des Incidents<h5>", unsafe_allow_html=True)
+        st.markdown("<h5 style='text-align: center; font-weight: bold;'>Typologies des Incidents<h5>", unsafe_allow_html=True)
         bar_data = df['Typologie Incidents'].value_counts().reset_index()
         bar_data.columns = ['Typologie Incidents', 'Réccurence']
 
-        bar_chart = alt.Chart(bar_data).mark_bar(color='SandyBrown').encode(
+        bar_chart = alt.Chart(bar_data).mark_bar(color='cornflowerblue').encode(
             y=alt.Y('Typologie Incidents', title='Typologie Incidents', sort='-x'),
             x=alt.X('Réccurence', title='Réccurence'),
             tooltip=['Typologie Incidents', alt.Tooltip('Réccurence', title='Réccurence')]
@@ -426,7 +425,7 @@ def afficher_graphiques_incidents(df):
         top_5_impacted_directions = bar_data.sort_values(by='Impact Financier', ascending=False).head(5)
 
          # Impact Financier par Direction
-        bar_chart = alt.Chart(top_5_impacted_directions).mark_bar(color='tomato').encode(
+        bar_chart = alt.Chart(top_5_impacted_directions).mark_bar(color='steelblue').encode(
             x=alt.X('Direction Impactée', title='Direction Impactée', sort='-y', axis=alt.Axis(labelAngle=65)),
             y=alt.Y('Impact Financier', title='Impact Financier'),
             tooltip=['Direction Impactée', alt.Tooltip('Impact Financier', title='Impact Financier', format=',')]
@@ -493,7 +492,7 @@ def run_app():
             kri_criticity = round(df['Criticité Nette Actuelle'].mean(),2)
             kri_critic_risks = df[df['Etat Criticité'] == 'Critique'].shape[0]
 
-            st.markdown("## 💡 Key Risk Indicators")
+            st.markdown("## 💡 Indicateurs Clés")
             col1, col2, col3, col4, col5, col6 = st.columns([1, 1, 1, 1, 1, 1.75])
             col1.metric("Total Risques", kri_total_risques)
             col2.metric("Risques Hôtel", kri_hotels_risques)
@@ -554,7 +553,7 @@ def run_app():
             kri_criticity = round(df['Criticité Nette Actuelle'].mean(),2)
             kri_critic_risks = df[df['Etat Criticité'] == 'Critique'].shape[0]
 
-            st.markdown("## 💡 Key Risk Indicators")
+            st.markdown("## 💡 Indicateurs Clés")
             col1, col2, col3, col4, col5, col6 = st.columns([1, 1, 1, 1, 1, 1.75])
             col1.metric("Total Incidents", kri_total_risques)
             col2.metric("Incidents Hôtel", kri_hotels_risques)
@@ -612,6 +611,10 @@ def run_app():
         main(option, uploaded_file, year_filter,Category_filter,Direction_filter,Impacted_filter,Criticity_filter,kri_total_risques, kri_hotels_risques, kri_siege_risques,kri_response_time,kri_criticity,kri_critic_risks)
 
     
+    
+if __name__ == "__main__":
+    run_app()
+
     
 if __name__ == "__main__":
     run_app()
