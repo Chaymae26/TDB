@@ -151,14 +151,14 @@ def afficher_graphiques_risques(df):
     Risk_count = df['Etat Risque'].value_counts()
     Action_count = df["Etat Plan d'Actions"].value_counts()
 
-    # Etat des Risques
+    # Suivi des Risques
     axs[0].pie(Risk_count, labels=["Evité","En Attente","Produit"], autopct='%1.1f%%', startangle=90, colors=['#04B431','#FFBF00','#DF0101'], wedgeprops=dict(width=0.5), textprops={'fontsize': 12})
-    axs[0].set_title('Etat des Risques', fontsize=20, fontweight='bold')
+    axs[0].set_title('Suivi des Risques', fontsize=20, fontweight='bold')
     axs[0].axis('equal')  
 
-    # Etat Plan d'Actions
+    # Etat d'Avancement du Plan d'Actions
     axs[1].pie(Action_count, labels=["Réalisées","En Cours","Echues Non Réalisées","A Prévoir"], autopct='%1.1f%%', startangle=90, colors=['#04B431','#FFBF00','#DF0101','#3374FF'], wedgeprops=dict(width=0.5), textprops={'fontsize': 12})
-    axs[1].set_title("Etat Plan d'Actions", fontsize=20, fontweight='bold')
+    axs[1].set_title("Etat d'Avancement du Plan d'Actions", fontsize=20, fontweight='bold')
     axs[1].axis('equal')
 
     plt.tight_layout()
@@ -277,9 +277,9 @@ def afficher_graphiques_incidents(df):
 
         fig, ax = plt.subplots(1, 1, figsize=(15, 11), gridspec_kw={'wspace': 0.2})
 
-        Inc_count = df['Etat Incident'].value_counts()
+        Inc_count = df['Suivi des Incidents'].value_counts()
 
-        # Etat des Incidents
+        # Suivi des Incidents
         ax.pie(Inc_count, labels=["Cloturés","En Cours","Non Entamés"], autopct='%1.1f%%', startangle=90, colors=['#04B431','#FFBF00','#DF0101'], wedgeprops=dict(width=0.55), textprops={'fontsize': 20})
         ax.axis('equal')  
 
@@ -293,9 +293,10 @@ def afficher_graphiques_incidents(df):
 
         fig, ax = plt.subplots(1, 1, figsize=(25, 20), gridspec_kw={'wspace': 0.2})
 
-        Action_plan = df["Etat Plan d'Actions"].value_counts()
+        
+        # Etat d'Avancement du Plan d'Actions
+        Action_plan = df["Etat d'Avancement du Plan d'Actions"].value_counts()
 
-        # Etat Plan d'actions
         ax.pie(Action_plan, labels=["Réalisées","En Cours","Echues Non Réalisées","A Prévoir"], autopct='%1.1f%%', startangle=90, colors=['#04B431','#FFBF00','#DF0101','#3374FF'], wedgeprops=dict(width=0.55), textprops={'fontsize': 35})
         ax.axis('equal')  
 
