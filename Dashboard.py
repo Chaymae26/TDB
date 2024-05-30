@@ -32,7 +32,6 @@ def main(option, uploaded_file, selected_year, selected_category, selected_direc
 def afficher_graphiques_risques(df):
 
     risks_by_type = df['Typologie Risques'].value_counts()
-    kri_counts = kri_counts[kri_counts > 0]
 
     top_risks_by_type = risks_by_type.sort_values(ascending=False).head(10)
 
@@ -73,6 +72,7 @@ def afficher_graphiques_risques(df):
     st.pyplot(fig)
     
     kri_counts = df['Etat Criticité'].value_counts()
+    kri_counts = kri_counts[kri_counts > 0]
 
     fig, axs = plt.subplots(1, 2, figsize=(20, 8), gridspec_kw={'wspace': 0.2})
 
