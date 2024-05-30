@@ -72,7 +72,6 @@ def afficher_graphiques_risques(df):
     st.pyplot(fig)
     
     kri_counts = df['Etat Criticité'].value_counts()
-    kri_counts = kri_counts[kri_counts > 0]
 
     fig, axs = plt.subplots(1, 2, figsize=(20, 8), gridspec_kw={'wspace': 0.2})
 
