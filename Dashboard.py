@@ -295,7 +295,7 @@ def afficher_graphiques_incidents(df):
 
         
         # Etat d'Avancement du Plan d'Actions
-        Action_plan = df["Etat d'Avancement du Plan d'Actions"].value_counts()
+        Action_plan = df["Etat Plan d'Actions"].value_counts()
 
         ax.pie(Action_plan, labels=["Réalisées","En Cours","Echues Non Réalisées","A Prévoir"], autopct='%1.1f%%', startangle=90, colors=['#04B431','#FFBF00','#DF0101','#3374FF'], wedgeprops=dict(width=0.55), textprops={'fontsize': 35})
         ax.axis('equal')  
