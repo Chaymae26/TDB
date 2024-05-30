@@ -277,7 +277,7 @@ def afficher_graphiques_incidents(df):
 
         fig, ax = plt.subplots(1, 1, figsize=(15, 11), gridspec_kw={'wspace': 0.2})
 
-        Inc_count = df['Etat Incidents'].value_counts()
+        Inc_count = df['Etat Incident'].value_counts()
 
         # Suivi des Incidents
         ax.pie(Inc_count, labels=["Cloturés","En Cours","Non Entamés"], autopct='%1.1f%%', startangle=90, colors=['#04B431','#FFBF00','#DF0101'], wedgeprops=dict(width=0.55), textprops={'fontsize': 20})
