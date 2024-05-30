@@ -37,7 +37,7 @@ def afficher_graphiques_risques(df):
 
     fig, axs = plt.subplots(1, 2, figsize=(18, 8), gridspec_kw={'wspace': 0.2})
 
-    bars = axs[0].barh(top_risks_by_type.index[::-1], top_risks_by_type.values[::-1], color='cornflowerblue')
+    bars = axs[0].barh(top_risks_by_type.index[::-1], top_risks_by_type.values[::-1], color='royalblue')
 
     for bar in bars:
         width = bar.get_width()
@@ -273,11 +273,11 @@ def afficher_graphiques_incidents(df):
     col1, col2 = st.columns([2, 2])
 
     with col1:
-        st.markdown("<h5 style='text-align: center; font-weight: bold;'>Etat Incidents<h5>", unsafe_allow_html=True)
+        st.markdown("<h5 style='text-align: center; font-weight: bold;'>Suivi des Incidents<h5>", unsafe_allow_html=True)
 
         fig, ax = plt.subplots(1, 1, figsize=(15, 11), gridspec_kw={'wspace': 0.2})
 
-        Inc_count = df['Suivi des Incidents'].value_counts()
+        Inc_count = df['Etat Incidents'].value_counts()
 
         # Suivi des Incidents
         ax.pie(Inc_count, labels=["Cloturés","En Cours","Non Entamés"], autopct='%1.1f%%', startangle=90, colors=['#04B431','#FFBF00','#DF0101'], wedgeprops=dict(width=0.55), textprops={'fontsize': 20})
@@ -289,7 +289,7 @@ def afficher_graphiques_incidents(df):
 
 
     with col2:
-        st.markdown("<h5 style='text-align: center; font-weight: bold;'>Etat Plan d'actions<h5>", unsafe_allow_html=True)
+        st.markdown("<h5 style='text-align: center; font-weight: bold;'>Etat d'avancement des Plans d'Actions<h5>", unsafe_allow_html=True)
 
         fig, ax = plt.subplots(1, 1, figsize=(25, 20), gridspec_kw={'wspace': 0.2})
 
@@ -615,5 +615,3 @@ def run_app():
     
 if __name__ == "__main__":
     run_app()
-
-    
