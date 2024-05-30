@@ -32,6 +32,7 @@ def main(option, uploaded_file, selected_year, selected_category, selected_direc
 def afficher_graphiques_risques(df):
 
     risks_by_type = df['Typologie Risques'].value_counts()
+    kri_counts = kri_counts[kri_counts > 0]
 
     top_risks_by_type = risks_by_type.sort_values(ascending=False).head(10)
 
