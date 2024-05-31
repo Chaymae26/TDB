@@ -72,11 +72,20 @@ def afficher_graphiques_risques(df):
     st.pyplot(fig)
     
     kri_counts = df['Etat Criticité'].value_counts()
+    kri_counts = kri_counts[kri_counts > 0]
+
+    colors1 = {
+        'Faible': 'LimeGreen',
+        'Modérée': 'Gold',
+        'Forte': 'orange',
+        'Critique': 'red'
+    }
+    kri_colors = [colors1.get(label, '#32CD32') for label in kri_counts.index]
 
     fig, axs = plt.subplots(1, 2, figsize=(20, 8), gridspec_kw={'wspace': 0.2})
 
     # Etat de la Criticité
-    axs[0].pie(kri_counts, labels=["Faible","Modérée","Forte","Critique"], autopct='%1.1f%%', startangle=90, colors=['#32CD32','#FFD700','#FF8C00','#DF0101'], wedgeprops=dict(width=0.5), textprops={'fontsize': 12})
+    axs[0].pie(kri_counts, labels=kri_counts.index, autopct='%1.1f%%', startangle=90, colors=kri_colors, wedgeprops=dict(width=0.5), textprops={'fontsize': 12})
     axs[0].set_title('Etat de la Criticité', fontsize=16, fontweight='bold')
     axs[0].axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle
 
@@ -149,15 +158,34 @@ def afficher_graphiques_risques(df):
     fig, axs = plt.subplots(1, 2, figsize=(20, 8), gridspec_kw={'wspace': 0.2})
 
     Risk_count = df['Etat Risque'].value_counts()
+    Risk_count = Risk_count[Risk_count > 0]
+
+    colors2 = {
+        'Evité': 'LimeGreen',
+        'Produit': 'red',
+        'En Attente': 'Gold'
+    }
+    Risk_colors = [colors2.get(label, '#FF0000') for label in Risk_count.index]
+
     Action_count = df["Etat Plan d'Actions"].value_counts()
+    Action_count = Action_count[Action_count > 0]
+    
+
+    colors3 = {
+        'Réalisées': 'LimeGreen',
+        'En Cours': 'Gold',
+        'Echues non Réalisées': 'Red',
+        'A Prévoir': 'DodgerBlue'
+    }
+    Action_colors = [colors3.get(label, '#32CD32') for label in Action_count.index]
 
     # Suivi des Risques
-    axs[0].pie(Risk_count, labels=["Evité","En Attente","Produit"], autopct='%1.1f%%', startangle=90, colors=['#04B431','#FFBF00','#DF0101'], wedgeprops=dict(width=0.5), textprops={'fontsize': 12})
+    axs[0].pie(Risk_count, labels=Risk_count.index, autopct='%1.1f%%', startangle=90, colors=Risk_colors, wedgeprops=dict(width=0.5), textprops={'fontsize': 12})
     axs[0].set_title('Suivi des Risques', fontsize=20, fontweight='bold')
     axs[0].axis('equal')  
 
     # Etat d'Avancement du Plan d'Actions
-    axs[1].pie(Action_count, labels=["Réalisées","En Cours","Echues Non Réalisées","A Prévoir"], autopct='%1.1f%%', startangle=90, colors=['#04B431','#FFBF00','#DF0101','#3374FF'], wedgeprops=dict(width=0.5), textprops={'fontsize': 12})
+    axs[1].pie(Action_count, labels=Action_count.index, autopct='%1.1f%%', startangle=90, colors=Action_colors, wedgeprops=dict(width=0.5), textprops={'fontsize': 12})
     axs[1].set_title("Etat d'Avancement du Plan d'Actions", fontsize=20, fontweight='bold')
     axs[1].axis('equal')
 
@@ -278,9 +306,17 @@ def afficher_graphiques_incidents(df):
         fig, ax = plt.subplots(1, 1, figsize=(15, 11), gridspec_kw={'wspace': 0.2})
 
         Inc_count = df['Etat Incident'].value_counts()
+        Inc_count = Inc_count[Inc_count > 0]
+
+        colors4 = {
+            'Cloturés': 'LimeGreen',
+            'En Cours': 'Gold',
+            'Non Entamés': 'Red'
+        }
+        Inc_colors = [colors4.get(label, '#32CD32') for label in Inc_count.index]
 
         # Suivi des Incidents
-        ax.pie(Inc_count, labels=["Cloturés","En Cours","Non Entamés"], autopct='%1.1f%%', startangle=90, colors=['#04B431','#FFBF00','#DF0101'], wedgeprops=dict(width=0.55), textprops={'fontsize': 20})
+        ax.pie(Inc_count, labels=Inc_count.index, autopct='%1.1f%%', startangle=90, colors=Inc_colors, wedgeprops=dict(width=0.55), textprops={'fontsize': 20})
         ax.axis('equal')  
 
         plt.tight_layout()
@@ -289,15 +325,24 @@ def afficher_graphiques_incidents(df):
 
 
     with col2:
-        st.markdown("<h5 style='text-align: center; font-weight: bold;'>Etat d'avancement des Plans d'Actions<h5>", unsafe_allow_html=True)
+        st.markdown("<h5 style='text-align: center; font-weight: bold;'>Etat d'Avancement des Plans d'Actions<h5>", unsafe_allow_html=True)
 
         fig, ax = plt.subplots(1, 1, figsize=(25, 20), gridspec_kw={'wspace': 0.2})
 
         
         # Etat d'Avancement du Plan d'Actions
         Action_plan = df["Etat Plan d'Actions"].value_counts()
+        Action_plan = Action_plan[Action_plan > 0]
 
-        ax.pie(Action_plan, labels=["Réalisées","En Cours","Echues Non Réalisées","A Prévoir"], autopct='%1.1f%%', startangle=90, colors=['#04B431','#FFBF00','#DF0101','#3374FF'], wedgeprops=dict(width=0.55), textprops={'fontsize': 35})
+        colors5 = {
+        'Réalisées': 'LimeGreen',
+        'En Cours': 'Gold',
+        'Echues non Réalisées': 'Red',
+        'A Prévoir': 'DodgerBlue'
+        }
+        A_Plan_colors = [colors5.get(label, '#32CD32') for label in Action_plan.index]
+
+        ax.pie(Action_plan, labels=Action_plan.index, autopct='%1.1f%%', startangle=90, colors=A_Plan_colors, wedgeprops=dict(width=0.55), textprops={'fontsize': 35})
         ax.axis('equal')  
 
         plt.tight_layout()
@@ -362,11 +407,21 @@ def afficher_graphiques_incidents(df):
         st.markdown("<h5 style='text-align: center; font-weight: bold;'>Etat de la Criticité<h5>", unsafe_allow_html=True)
 
         kri_counts = df['Etat Criticité'].value_counts()
+        kri_counts = kri_counts[kri_counts > 0]
+
+        colors6 = {
+        'Faible': 'LimeGreen',
+        'Modérée': 'Gold',
+        'Critique': 'Red',
+        'Forte': 'Orange'
+        }
+
+        Kri_colors_2 = [colors6.get(label, '#32CD32') for label in kri_counts.index]
 
         fig, ax = plt.subplots(1, 1, figsize=(25, 16), gridspec_kw={'wspace': 0.2})
 
         # Etat de la Criticité
-        ax.pie(kri_counts, labels=["Faible","Modérée","Forte","Critique"], autopct='%1.1f%%', startangle=90, colors=['#32CD32','#FFD700','#FF8C00','#DF0101'], wedgeprops=dict(width=0.6), textprops={'fontsize': 35})
+        ax.pie(kri_counts, labels=kri_counts.index, autopct='%1.1f%%', startangle=90, colors=Kri_colors_2, wedgeprops=dict(width=0.6), textprops={'fontsize': 35})
         ax.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle
 
         plt.tight_layout()
